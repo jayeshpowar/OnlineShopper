@@ -17,7 +17,7 @@ class Car(Model):
     quantity = models.IntegerField()
     price = models.IntegerField()
     description = models.CharField(max_length=255)
-    reseller = models.ForeignKey(Dealer)
+    dealer = models.ForeignKey(Dealer)
 
 
     def __unicode__(self):
