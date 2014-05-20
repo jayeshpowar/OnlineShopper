@@ -1,0 +1,5 @@
+django==1.6
+pillow
+djangorestframework
+markdown
+django-rest-swagger

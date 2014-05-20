@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+<div class="" id="loginModal">
+    <div class="modal-header">
+
+        <h3></h3>
+    </div>
+    <div class="modal-body">
+        <div class="well">
+
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    {{ form.errors }}
+                </div>
+            {% endif %}
+            <form class="form-horizontal" action='' method="POST">
+                        {% csrf_token %}
+                        <fieldset>
+                            <div id="legend">
+                                <legend class="">Please Sign In</legend>
+                            </div>
+                           <div class="control-group">
+                        <!-- Username -->
+                        <label class="control-label"
+                               for="username">Username</label>
+
+                        <div class="controls">
+                            {{ form.username}}
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <!-- Password-->
+                        <label class="control-label"
+                               for="password">Password</label>
+
+                        <div class="controls">
+                            {{ form.password }}
+                        </div>
+                    </div>
+
+
+                    <div class="control-group">
+                        <div class="controls">
+                            <button class="btn btn-success">Login</button>
+                            <a href="{% url 'registration_page' %}">Register</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+{% endblock %}

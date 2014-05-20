@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container theme-showcase" role="main">
+
+      <div class="jumbotron">
+        <h3>Welcome {{ user.username }}!!</h3>
+        <p> This is the one time shopping portal that you were looking for .</p>
+      </div>
+
+
+    <form id="checkoutform" action="/confirmorder/" method="POST">
+        {% csrf_token %}
+
+    <table class="table table-hover">
+
+
+        <thead>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
+            <th></th>
+        </thead>
+        <tbody>
+        {% for car in object_list %}
+            <input type="hidden" name="{{car.pk}}-{{car.pk}}" value="{{ car.quantity }}"/>
+            <tr>
+                <td>{{ car.name }}</td>
+                <td><input class=".disabled btn btn-default" type="button" value="{{ car.quantity }}"></td>
+                <td>{{ car.price }}</td>
+                <td><abbr title="checkout">
+                    <input type="checkbox"  id="{{car.pk}}" name="{{ car.pk }}">
+                    </abbr>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+        <button class="btn btn-default" id="submit-btn" type="submit" onclick="checkout();return false;">Checkout</button>
+    </form>
+     </div>
+
+
+
+{% endblock %}

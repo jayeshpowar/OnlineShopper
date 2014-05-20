@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container theme-showcase" role="main">
+
+      <div class="jumbotron">
+        <h4>Welcome {{ user.username }}!!</h4>
+        <p> Your only destination to find vintage cars on web !! </p>
+      </div>
+
+
+    <form id="checkoutform" action="/checkout">
+
+    <table class="table table-hover">
+
+
+        <thead>
+            <th>Name</th>
+            <th>Year</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th></th>
+        </thead>
+        <tbody>
+        {% for car in object_list %}
+            <tr>
+                <input type="hidden" name="{{car.pk}}" id="car-{{car.pk}}" value="0"/>
+                <td>{{ car.name}}</td>
+                <td>{{ car.year}}</td>
+                <td><input class=".disabled btn btn-default" type="button" value="{{ car.quantity}}"></td>
+                <td>{{ car.price}}</td>
+                <td>{{ car.description}}</td>
+                <td><abbr title="Add to Cart">
+                    <button class="btn btn-default btn-xs" type="submit" onclick="addToCart('{{ car.name }}','{{ car.pk }}');return false;">
+                    <span class="glyphicon glyphicon-shopping-cart"></a></span>
+                    </button>
+                    </abbr>
+                    <span class="badge" id="badge-{{ car.name }}">0</span>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+        <!--<input type="hidden" name="selected-val" id="selected-val"/>-->
+        <button class="btn btn-default" id="submit-btn" type="submit" onclick="checkout();">Proceed to Checkout</button>
+        <button class="btn btn-default" type="submit" onclick="resetCart();return false;">Clear Cart</button>
+    </form>
+     </div>
+     <script>
+
+        var cartMap = new Object();
+
+
+        function get(k) {
+            return cartMap[k];
+        }
+
+        function addToCart(carName, carId){
+            var items = get(carName);
+            if (items == undefined){
+                cartMap[carName] = 1
+                items = get(carName);
+            }else{
+                items = items + 1
+            }
+            cartMap[carName] = items
+            badgeId= '#badge-'+carName
+            $(badgeId).text(items);
+            //$("#selected-val").val(JSON.stringify(cartMap));
+            $("#car-"+carId).val(items);
+        }
+
+
+          function resetCart(){
+            cartMap=new Object();
+          }
+
+          function checkout(){
+
+            // $("#selected-val").val(JSON.stringify(cartMap));
+
+
+
+          }
+
+     </script>
+
+
+{% endblock %}
